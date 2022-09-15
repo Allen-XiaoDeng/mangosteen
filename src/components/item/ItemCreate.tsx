@@ -20,7 +20,7 @@ export const ItemCreate = defineComponent({
 						<>
 							<Tabs v-model:selected={refKind.value}>
 								<Tab name="支出">iconlist</Tab>
-								<Tab name="收入">iconlist</Tab>
+								<Tab name="收入">iconlist2</Tab>
 							</Tabs>
 						</>
 					),
