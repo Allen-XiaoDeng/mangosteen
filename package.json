@@ -1,24 +1,26 @@
 {
-  "name": "mangosteen",
-  "private": true,
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "sass": "^1.54.9",
-    "svgo": "2.8.0",
-    "svgstore": "3.0.1",
-    "vue": "^3.2.25",
-    "vue-router": "4.0.14"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^2.3.0",
-    "@vitejs/plugin-vue-jsx": "^2.0.0",
-    "typescript": "^4.5.4",
-    "vite": "^3.0.0",
-    "vue-tsc": "^0.29.8"
-  }
+	"name": "mangosteen",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vue-tsc --noEmit && vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"sass": "^1.54.9",
+		"svgo": "2.8.0",
+		"svgstore": "3.0.1",
+		"vant": "^3.6.2",
+		"vue": "^3.2.25",
+		"vue-router": "4.0.14"
+	},
+	"devDependencies": {
+		"@vitejs/plugin-vue": "^2.3.0",
+		"@vitejs/plugin-vue-jsx": "^2.0.0",
+		"typescript": "^4.5.4",
+		"vite": "^3.0.0",
+		"vite-plugin-style-import": "1.4.1",
+		"vue-tsc": "^0.29.8"
+	}
 }

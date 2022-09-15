@@ -1,4 +1,5 @@
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, ref } from 'vue';
+import { DatetimePicker, Popup } from 'vant';
 import { Icon } from '../../shared/Icon';
 import { time } from '../../shared/time';
 import s from './InputPad.module.scss';
@@ -29,13 +30,22 @@ export const InputPad = defineComponent({
 			{ text: '删', onClick: () => {} },
 			{ text: '提交', onClick: () => {} },
 		];
+		const refShowPop = ref(false);
 		return () => (
 			<>
 				<div class={s.dateAndAmount}>
 					<span class={s.date}>
 						<Icon name="date" class={s.icon} />
 						<span>
-							<input type="date" value={time(now).format()} />
+							<span onClick={() => (refShowPop.value = true)}>{time(refDate.value).format()}</span>
+							<Popup position="bottom" v-model:show={refShowPop.value}>
+								<DatetimePicker
+									v-model={refDate.value}
+									type="date"
+									title="选择年月日"
+									onConfirm={() => (refShowPop.value = false)}
+								/>
+							</Popup>
 						</span>
 					</span>
 					<span class={s.amount}>100.23</span>
