@@ -8,7 +8,6 @@ import { Icon } from '../shared/Icon';
 import { Navbar } from '../shared/Navbar';
 import { Overlay } from '../shared/Overlay';
 import s from './StartPage.module.scss';
-
 export const StartPage = defineComponent({
 	setup: (props, context) => {
 		const refOverlayVisible = ref(false);
