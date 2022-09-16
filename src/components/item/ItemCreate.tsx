@@ -12,6 +12,9 @@ export const ItemCreate = defineComponent({
 	},
 	setup: (props, context) => {
 		const refKind = ref('支出');
+
+
+
 		return () => (
 			<MainLayout>
 				{{
