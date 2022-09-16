@@ -37,6 +37,7 @@ export const InputPad = defineComponent({
 			refDate.value = date;
 			hideDatePicker();
 		};
+		const refAmount = ref('');
 		return () => (
 			<>
 				<div class={s.dateAndAmount}>
