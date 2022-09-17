@@ -29,7 +29,7 @@ export const FormItem = defineComponent({
     },
     error: {
       type: String
-    }
+    },
   },
   setup: (props, context) => {
     const content = computed(() => {
