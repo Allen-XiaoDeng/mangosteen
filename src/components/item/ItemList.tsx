@@ -2,6 +2,7 @@
 import { defineComponent, PropType, ref, reactive, watchEffect } from 'vue';
 import { MainLayout } from '../../layouts/MainLayout';
 import { Button } from '../../shared/Button';
+import { OverlayIcon } from '../../shared/Overlay';
 import { Icon } from '../../shared/Icon';
 import { Time } from '../../shared/time';
 import { Tab, Tabs } from '../../shared/Tabs';
@@ -52,7 +53,7 @@ export const ItemList = defineComponent({
 			<MainLayout>{
 				{
 					title: () => '山竹记账',
-					icon: () => <Icon name="menu" />,
+					icon: () => <OverlayIcon />,
 					default: () => (
 						<>
 							<Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value}
