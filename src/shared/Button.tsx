@@ -1,9 +1,7 @@
 import { defineComponent, PropType } from 'vue';
 import s from './Button.module.scss';
 
-interface Props {
-
-}
+interface Props {}
 
 export const Button = defineComponent({
 	props: {
@@ -15,10 +13,14 @@ export const Button = defineComponent({
 			default: 'important',
 		},
 		type: {
-			type: String as PropType<'submit' | 'button'>
+			type: String as PropType<'submit' | 'button'>,
 		},
 	},
 	setup: (props, context) => {
-		return () => <button type={props.type} class={[s.button, s[props.level]]}>{context.slots.default?.()}</button>;
+		return () => (
+			<button onClick={props.onClick} type={props.type} class={[s.button, s[props.level]]}>
+				{context.slots.default?.()}
+			</button>
+		);
 	},
 });
