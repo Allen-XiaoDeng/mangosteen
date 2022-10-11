@@ -20,7 +20,7 @@ const whiteList: Record<string, 'exact' | 'startsWith'> = {
 };
 
 fetchMe();
-router.beforeEach(async (to, from) => {
+router.beforeEach((to, from) => {
 	for (const key in whiteList) {
 		const value = whiteList[key];
 		if (value === 'exact' && to.path === key) {
