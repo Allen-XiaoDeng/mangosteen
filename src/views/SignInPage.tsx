@@ -9,6 +9,7 @@ import { Icon } from '../shared/Icon';
 import { history } from '../shared/history';
 import { hasError, validate } from '../shared/validate';
 import s from './SignInPage.module.scss';
+import { useRouter } from 'vue-router';
 export const SignInPage = defineComponent({
 	setup: (props, context) => {
 		const formData = reactive({
@@ -21,6 +22,7 @@ export const SignInPage = defineComponent({
 		});
 		const refValidationCode = ref<any>();
 		const { ref: refDisabled, toggle, on: enable, off: disabled } = useBool(false);
+		const router = useRouter();
 		const onSubmit = async (e: Event) => {
 			e.preventDefault();
 			Object.assign(errors, {
@@ -38,7 +40,9 @@ export const SignInPage = defineComponent({
 			if (!hasError(errors)) {
 				const response = await http.post<{ jwt: string }>('/session', formData).catch(onError);
 				localStorage.setItem('jwt', response.data.jwt);
-				history.push('/');
+				// router.push('/sign_in?return_to='+ encodeURIComponent(route.fullPath))
+				const returnTo = localStorage.getItem('returnTo');
+				router.push(returnTo || '/'); // returnTo ? returnTo : '/'
 			}
 		};
 
