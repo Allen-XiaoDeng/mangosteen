@@ -6,6 +6,7 @@ import { useBool } from '../hooks/useBool';
 import { Form, FormItem } from '../shared/Form';
 import { http } from '../shared/Http';
 import { Icon } from '../shared/Icon';
+import { history } from '../shared/history';
 import { hasError, validate } from '../shared/validate';
 import s from './SignInPage.module.scss';
 export const SignInPage = defineComponent({
@@ -35,7 +36,9 @@ export const SignInPage = defineComponent({
 				])
 			);
 			if (!hasError(errors)) {
-				const response = await http.post('/session', formData);
+				const response = await http.post<{ jwt: string }>('/session', formData).catch(onError);
+				localStorage.setItem('jwt', response.data.jwt);
+				history.push('/');
 			}
 		};
 
@@ -45,6 +48,7 @@ export const SignInPage = defineComponent({
 			}
 			throw error;
 		};
+
 		const onClickSendValidationCode = async () => {
 			enable();
 			const response = await http
