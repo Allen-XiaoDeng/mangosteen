@@ -1,5 +1,6 @@
 import { DatetimePicker, Popup } from 'vant';
 import { Button } from './Button';
+import { getFriendlyError } from './getFriendlyError';
 import { computed, defineComponent, PropType, ref, VNode } from 'vue';
 import { EmojiSelect } from './EmojiSelect';
 import s from './Form.module.scss';
@@ -47,15 +48,15 @@ export const FormItem = defineComponent({
 		const count = ref<number>(props.countFrom);
 		const isCounting = computed(() => !!timer.value);
 		const startCount = () =>
-			timer.value = setInterval(() => {
+			(timer.value = setInterval(() => {
 				count.value -= 1;
 				if (count.value === 0) {
 					clearInterval(timer.value);
 					timer.value = undefined;
 					count.value = props.countFrom;
 				}
-			}, 1000);
-		context.expose({ startCount })
+			}, 1000));
+		context.expose({ startCount });
 		const content = computed(() => {
 			switch (props.type) {
 				case 'text':
@@ -142,7 +143,7 @@ export const FormItem = defineComponent({
 						{props.label && <span class={s.formItem_name}>{props.label}</span>}
 						<div class={s.formItem_value}>{content.value}</div>
 						<div class={s.formItem_errorHint}>
-							<span>{props.error ?? '　'}</span>
+							<span>{props.error ? getFriendlyError(props.error) : '　'}</span>
 						</div>
 					</label>
 				</div>
