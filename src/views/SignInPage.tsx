@@ -10,6 +10,7 @@ import { history } from '../shared/history';
 import { hasError, validate } from '../shared/validate';
 import s from './SignInPage.module.scss';
 import { useRouter } from 'vue-router';
+import { refreshMe } from '../shared/me';
 export const SignInPage = defineComponent({
 	setup: (props, context) => {
 		const formData = reactive({
@@ -42,6 +43,7 @@ export const SignInPage = defineComponent({
 				localStorage.setItem('jwt', response.data.jwt);
 				// router.push('/sign_in?return_to='+ encodeURIComponent(route.fullPath))
 				const returnTo = localStorage.getItem('returnTo');
+				refreshMe();
 				router.push(returnTo || '/'); // returnTo ? returnTo : '/'
 			}
 		};
