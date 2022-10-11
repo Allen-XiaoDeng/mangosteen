@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { defineComponent, PropType, reactive, ref } from 'vue';
 import { MainLayout } from '../layouts/MainLayout';
 import { Button } from '../shared/Button';
+import { useBool } from '../hooks/useBool';
 import { Form, FormItem } from '../shared/Form';
 import { http } from '../shared/Http';
 import { Icon } from '../shared/Icon';
@@ -18,6 +19,7 @@ export const SignInPage = defineComponent({
 			code: [],
 		});
 		const refValidationCode = ref<any>();
+		const { ref: refDisabled, toggle, on: enable, off: disabled } = useBool(false);
 		const onSubmit = (e: Event) => {
 			e.preventDefault();
 			Object.assign(errors, {
@@ -41,7 +43,11 @@ export const SignInPage = defineComponent({
 			throw error;
 		};
 		const onClickSendValidationCode = async () => {
-			const response = await http.post('/validation_codes', { email: formData.email }).catch(onError);
+			enable();
+			const response = await http
+				.post('/validation_codes', { email: formData.email })
+				.catch(onError)
+				.finally(disabled);
 			//成功
 			refValidationCode.value.startCount();
 		};
@@ -69,6 +75,7 @@ export const SignInPage = defineComponent({
 									label="验证码"
 									type="validationCode"
 									placeholder="请输入六位数字"
+									disabled={refDisabled.value}
 									onClick={onClickSendValidationCode}
 									v-model={formData.code}
 									error={errors.code?.[0]}
