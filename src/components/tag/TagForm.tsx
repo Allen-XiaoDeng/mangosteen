@@ -1,6 +1,5 @@
 import { Button } from '../../shared/Button';
-import { defineComponent, PropType, reactive, toRaw } from 'vue';
-import { EmojiSelect } from '../../shared/EmojiSelect';
+import { defineComponent, onMounted, PropType, reactive, toRaw } from 'vue';
 import { hasError, Rules, validate } from '../../shared/validate';
 import { Form, FormItem } from '../../shared/Form';
 import s from './Tag.module.scss';
@@ -9,19 +8,18 @@ import { http } from '../../shared/Http';
 import { onFormError } from '../../shared/onFormError';
 export const TagForm = defineComponent({
 	props: {
-		name: {
-			type: String as PropType<string>,
-		},
+		id: Number,
 	},
 	setup: (props, context) => {
 		const route = useRoute();
 		if (!route.query.kind) {
 			return () => <div>参数错误</div>;
 		}
-		const formData = reactive({
-			kind: route.query.kind!.toString(),
+		const formData = reactive<Partial<Tag>>({
+			id: undefined,
 			name: '',
 			sign: '',
+			kind: route.query.kind!.toString(),
 		});
 		const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({});
 		const router = useRouter();
@@ -38,14 +36,26 @@ export const TagForm = defineComponent({
 			});
 			Object.assign(errors, validate(formData, rules));
 			if (!hasError(errors)) {
-				const response = await http
-					.post('/tags', formData, {
-						params: { _mock: 'tagCreate' },
-					})
-					.catch(error => onFormError(error, data => Object.assign(errors, data.errors)));
+				const promise = formData.id
+					? http.patch(`/tags/${formData.id}`, formData, {
+							params: { _mock: 'tagEdit' },
+					  })
+					: http.post('/tags', formData, {
+							params: { _mock: 'tagCreate' },
+					  });
+				await promise.catch(error => onFormError(error, data => Object.assign(errors, data.errors)));
 				router.back();
 			}
 		};
+		onMounted(async () => {
+			if (!props.id) {
+				return;
+			}
+			const response = await http.get<Resource<Tag>>(`/tags/${props.id}`, {
+				_mock: 'tagShow',
+			});
+			Object.assign(formData, response.data.resource);
+		});
 
 		return () => (
 			<Form onSubmit={onSubmit}>
