@@ -12,6 +12,8 @@ export const Tags = defineComponent({
 		},
 		selected: Number,
 	},
+	emits: ['update:selected'],
+
 	setup: (props, context) => {
 		const { tags, hasMore, page, fetchTags } = useTags(page => {
 			return http.get<Resources<Tag>>('/tags', {
