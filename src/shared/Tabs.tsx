@@ -3,7 +3,7 @@ import s from './Tabs.module.scss';
 export const Tabs = defineComponent({
 	props: {
 		classPrefix: {
-			type: String
+			type: String,
 		},
 		selected: {
 			type: String as PropType<string>,
@@ -19,7 +19,7 @@ export const Tabs = defineComponent({
 					throw new Error('Tabs的子组件必须是Tab');
 				}
 			}
-			const cp = props.classPrefix
+			const cp = props.classPrefix;
 
 			return (
 				<div class={[cp + '_tabs', s.tabs]}>
@@ -28,14 +28,19 @@ export const Tabs = defineComponent({
 							<li
 								class={[
 									item.props?.name === props.selected ? [s.selected, cp + '_selected'] : '',
-									cp + '_tabs_nav_item']}
+									cp + '_tabs_nav_item',
+								]}
 								onClick={() => context.emit('update:selected', item.props?.name)}
 							>
 								{item.props?.name}
 							</li>
 						))}
 					</ol>
-					<div>{tabs.find(item => item.props?.name === props.selected)}</div>
+					<div>
+						{tabs.map(item => (
+							<div v-show={item.props?.name === props.selected}>{item}</div>
+						))}
+					</div>
 				</div>
 			);
 		};
