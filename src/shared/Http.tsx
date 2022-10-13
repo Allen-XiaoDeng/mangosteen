@@ -46,11 +46,11 @@ const mock = (response: AxiosResponse) => {
 		case 'itemCreate':
 			[response.status, response.data] = mockItemCreate(response.config);
 			return true;
-		case 'itemIndex':
-			[response.status, response.data] = mockItemIndex(response.config);
-			return true;
-		case 'tagCreate':
-			[response.status, response.data] = mockTagCreate(response.config);
+		// case 'itemIndex':
+		// 	[response.status, response.data] = mockItemIndex(response.config);
+		// 	return true;
+		// case 'tagCreate':
+		// 	[response.status, response.data] = mockTagCreate(response.config);
 		case 'session':
 			[response.status, response.data] = mockSession(response.config);
 			return true;
