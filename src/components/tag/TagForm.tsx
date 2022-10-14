@@ -39,9 +39,11 @@ export const TagForm = defineComponent({
 				const promise = formData.id
 					? http.patch(`/tags/${formData.id}`, formData, {
 							_mock: 'tagEdit',
+							_autoLoading: true,
 					  })
 					: http.post('/tags', formData, {
 							_mock: 'tagCreate',
+							_autoLoading: true,
 					  });
 				await promise.catch(error => onFormError(error, data => Object.assign(errors, data.errors)));
 				router.back();
@@ -56,6 +58,7 @@ export const TagForm = defineComponent({
 				{},
 				{
 					_mock: 'tagShow',
+					_autoLoading: true,
 				}
 			);
 			Object.assign(formData, response.data.resource);
