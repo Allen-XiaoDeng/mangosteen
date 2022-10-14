@@ -1,13 +1,13 @@
-import { defineComponent, onMounted, PropType, ref, reactive, watch } from 'vue';
-import { FloatButton } from '../../shared/FloatButton';
-import { Button } from '../../shared/Button';
+import { defineComponent, onMounted, PropType, reactive, ref, watch } from 'vue';
 import { RouterLink } from 'vue-router';
+import { Button } from '../../shared/Button';
 import { Center } from '../../shared/Center';
-import { Icon } from '../../shared/Icon';
-import { http } from '../../shared/Http';
-import s from './ItemSummary.module.scss';
-import { Money } from '../../shared/Money';
 import { Datetime } from '../../shared/Datetime';
+import { FloatButton } from '../../shared/FloatButton';
+import { http } from '../../shared/Http';
+import { Icon } from '../../shared/Icon';
+import { Money } from '../../shared/Money';
+import s from './ItemSummary.module.scss';
 export const ItemSummary = defineComponent({
 	props: {
 		startDate: {
@@ -54,13 +54,11 @@ export const ItemSummary = defineComponent({
 				fetchItems();
 			}
 		);
-
 		const itemsBalance = reactive({
 			expenses: 0,
 			income: 0,
 			balance: 0,
 		});
-
 		const fetchItemsBalance = async () => {
 			if (!props.startDate || !props.endDate) {
 				return;
@@ -90,7 +88,6 @@ export const ItemSummary = defineComponent({
 				fetchItemsBalance();
 			}
 		);
-
 		return () => (
 			<div class={s.wrapper}>
 				{items.value && items.value.length > 0 ? (
