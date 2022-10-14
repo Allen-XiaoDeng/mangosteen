@@ -13,10 +13,10 @@ import { Third } from '../components/welcome/Third';
 import { ThirdActions } from '../components/welcome/ThirdActions';
 import { ItemPage } from '../views/ItemPage';
 import { SignInPage } from '../views/SignInPage';
-import { StartPage } from '../views/StartPage';
 import { StatisticsPage } from '../views/StatisticsPage';
 import { TagPage } from '../views/TagPage';
 import { Welcome } from '../views/Welcome';
+import { ComingSoon } from '../shared/ComingSoon';
 
 export const routes: RouteRecordRaw[] = [
 	{ path: '/', redirect: '/welcome' },
@@ -57,5 +57,13 @@ export const routes: RouteRecordRaw[] = [
 	{
 		path: '/statistics',
 		component: StatisticsPage,
+	},
+	{
+		path: '/export',
+		component: ComingSoon,
+	},
+	{
+		path: '/notify',
+		component: ComingSoon,
 	},
 ];
