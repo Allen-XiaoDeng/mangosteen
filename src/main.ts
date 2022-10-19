@@ -4,6 +4,7 @@ import { App } from './App';
 import { routes } from './config/routes';
 import { history } from './shared/history';
 import { createRouter } from 'vue-router';
+import { Dialog } from 'vant';
 import '@svgstore';
 import { createPinia, storeToRefs } from 'pinia';
 
@@ -40,6 +41,6 @@ router.beforeEach((to, from) => {
 	}
 	return mePromise!.value!.then(
 		() => true,
-		() => '/sign_in?return_to=' + to.path
+		() => '/sign_in?return_to=' + from.path
 	);
 });
