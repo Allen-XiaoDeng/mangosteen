@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, PropType, reactive, ref, watch } from 'vue';
+import { defineComponent, PropType, reactive, ref, watch } from 'vue';
 import { RouterLink } from 'vue-router';
 import { Button } from '../../shared/Button';
 import { Center } from '../../shared/Center';
@@ -26,7 +26,7 @@ export const ItemSummary = defineComponent({
 			return () => <div>请先选择时间范围</div>;
 		}
 		const itemStore = useItemStore(['items', props.startDate, props.endDate]);
-		useAfterMe(() => itemStore.fetchItems(props.startDate, props.endDate));
+		useAfterMe(() => itemStore.fetchNextPage(props.startDate, props.endDate));
 
 		watch(
 			() => [props.startDate, props.endDate],
