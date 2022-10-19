@@ -1,4 +1,3 @@
-import axios, { AxiosResponse } from 'axios';
 import { defineComponent, PropType, reactive, ref } from 'vue';
 import { MainLayout } from '../layouts/MainLayout';
 import { Button } from '../shared/Button';
@@ -6,14 +5,14 @@ import { useBool } from '../hooks/useBool';
 import { Form, FormItem } from '../shared/Form';
 import { http } from '../shared/Http';
 import { Icon } from '../shared/Icon';
-import { history } from '../shared/history';
 import { hasError, validate } from '../shared/validate';
 import s from './SignInPage.module.scss';
 import { useRouter } from 'vue-router';
-import { refreshMe } from '../shared/me';
 import { BackIcon } from '../shared/BackIcon';
+import { useMeStore } from '../stores/useMeStore';
 export const SignInPage = defineComponent({
 	setup: (props, context) => {
+		const meStore = useMeStore();
 		const formData = reactive({
 			email: '',
 			code: '',
@@ -44,7 +43,7 @@ export const SignInPage = defineComponent({
 				localStorage.setItem('jwt', response.data.jwt);
 				// router.push('/sign_in?return_to='+ encodeURIComponent(route.fullPath))
 				const returnTo = localStorage.getItem('returnTo');
-				refreshMe();
+				meStore.refreshMe();
 				router.push(returnTo || '/'); // returnTo ? returnTo : '/'
 			}
 		};
