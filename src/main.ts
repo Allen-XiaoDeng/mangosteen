@@ -4,7 +4,6 @@ import { App } from './App';
 import { routes } from './config/routes';
 import { history } from './shared/history';
 import { createRouter } from 'vue-router';
-import { Dialog } from 'vant';
 import '@svgstore';
 import { createPinia, storeToRefs } from 'pinia';
 
