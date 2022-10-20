@@ -119,8 +119,6 @@ export const InputPad = defineComponent({
 			{
 				text: '提交',
 				onClick: () => {
-					console.log('提交');
-
 					context.emit('update:amount', parseFloat(refAmount.value) * 100);
 					props.onSubmit?.();
 				},
